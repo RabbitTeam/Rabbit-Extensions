@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rabbit.Extensions.Configuration", "Rabbit.Extensions.Configuration\Rabbit.Extensions.Configuration.csproj", "{6934D8D2-6993-4E8C-A118-8EDAFC8C6709}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rabbit.Extensions.Configuration", "src\Configuration\Rabbit.Extensions.Configuration\Rabbit.Extensions.Configuration.csproj", "{6934D8D2-6993-4E8C-A118-8EDAFC8C6709}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rabbit.Extensions.Configuration.Consul", "Rabbit.Extensions.Configuration.Consul\Rabbit.Extensions.Configuration.Consul.csproj", "{81DB7700-4A63-45CB-8FC3-AD444689138B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rabbit.Extensions.Configuration.Consul", "src\Configuration\Rabbit.Extensions.Configuration.Consul\Rabbit.Extensions.Configuration.Consul.csproj", "{81DB7700-4A63-45CB-8FC3-AD444689138B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D4FCD154-5BBF-4996-AD71-CE87C5698F7E}"
 EndProject
@@ -13,15 +13,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{0FDEAFEB-7
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9147F8C9-9957-42CB-B854-C2E1010E7DFE}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\..\build\common.props = ..\..\..\build\common.props
-		..\..\..\build\version.props = ..\..\..\build\version.props
+		build\common.props = build\common.props
+		build\version.props = build\version.props
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configuration", "{765A2DE5-FC74-43A4-9A6D-3FC7BA467C2F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configuration", "{AAC81674-3B5C-4041-ABD0-2F37BCE69089}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rabbit.Extensions.Configuration.Test", "..\..\..\test\Configuration\Rabbit.Extensions.Configuration.Test\Rabbit.Extensions.Configuration.Test.csproj", "{A023902F-6BEF-4DB9-A389-2CA4FB209F12}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rabbit.Extensions.Configuration.Test", "test\Configuration\Rabbit.Extensions.Configuration.Test\Rabbit.Extensions.Configuration.Test.csproj", "{A023902F-6BEF-4DB9-A389-2CA4FB209F12}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{76380790-B349-4C9F-868B-39F81582A114}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

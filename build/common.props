@@ -6,6 +6,10 @@
     <ProjectParentDirectoryName>$([System.IO.Path]::GetFileName('$(ProjectParentDirectory)'))</ProjectParentDirectoryName>
   </PropertyGroup>
 
+  <PropertyGroup Label="Build">
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+
   <PropertyGroup Label="Package">
     <Product>Rabbit Extensions</Product>
     <RepositoryUrl>https://github.com/RabbitTeam/Rabbit-Extensions</RepositoryUrl>

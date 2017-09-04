@@ -1,0 +1,22 @@
+<Project ToolsVersion="15.0">
+  <Import Project="version.props" />
+
+  <PropertyGroup Label="Source Link">
+    <ProjectParentDirectory>$([System.IO.Path]::GetDirectoryName('$(MSBuildProjectDirectory)'))</ProjectParentDirectory>
+    <ProjectParentDirectoryName>$([System.IO.Path]::GetFileName('$(ProjectParentDirectory)'))</ProjectParentDirectoryName>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Package">
+    <Product>Rabbit Extensions</Product>
+    <RepositoryUrl>https://github.com/RabbitTeam/Rabbit-Extensions</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Description>An extension library for .NET Core.</Description>
+    <Copyright>Copyright (c) 2017 RabbitTeam. All rights reserved.</Copyright>
+    <Authors>majian</Authors>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    
+    <PackageIconUrl>http://www.rabbithub.com/icon.png</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/RabbitTeam/Rabbit-Extensions</PackageProjectUrl>
+    <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
+  </PropertyGroup>
+</Project>

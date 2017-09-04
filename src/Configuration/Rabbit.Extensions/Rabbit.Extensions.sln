@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rabbit.Extensions.Configuration", "Rabbit.Extensions.Configuration\Rabbit.Extensions.Configuration.csproj", "{6934D8D2-6993-4E8C-A118-8EDAFC8C6709}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rabbit.Extensions.Configuration.Consul", "Rabbit.Extensions.Configuration.Consul\Rabbit.Extensions.Configuration.Consul.csproj", "{81DB7700-4A63-45CB-8FC3-AD444689138B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D4FCD154-5BBF-4996-AD71-CE87C5698F7E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{0FDEAFEB-7926-4A63-BC38-F6BC223CBADD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9147F8C9-9957-42CB-B854-C2E1010E7DFE}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\build\common.props = ..\..\..\build\common.props
+		..\..\..\build\version.props = ..\..\..\build\version.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configuration", "{765A2DE5-FC74-43A4-9A6D-3FC7BA467C2F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configuration", "{AAC81674-3B5C-4041-ABD0-2F37BCE69089}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rabbit.Extensions.Configuration.Test", "..\..\..\test\Configuration\Rabbit.Extensions.Configuration.Test\Rabbit.Extensions.Configuration.Test.csproj", "{A023902F-6BEF-4DB9-A389-2CA4FB209F12}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6934D8D2-6993-4E8C-A118-8EDAFC8C6709}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6934D8D2-6993-4E8C-A118-8EDAFC8C6709}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6934D8D2-6993-4E8C-A118-8EDAFC8C6709}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6934D8D2-6993-4E8C-A118-8EDAFC8C6709}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81DB7700-4A63-45CB-8FC3-AD444689138B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81DB7700-4A63-45CB-8FC3-AD444689138B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81DB7700-4A63-45CB-8FC3-AD444689138B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81DB7700-4A63-45CB-8FC3-AD444689138B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A023902F-6BEF-4DB9-A389-2CA4FB209F12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A023902F-6BEF-4DB9-A389-2CA4FB209F12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A023902F-6BEF-4DB9-A389-2CA4FB209F12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A023902F-6BEF-4DB9-A389-2CA4FB209F12}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6934D8D2-6993-4E8C-A118-8EDAFC8C6709} = {765A2DE5-FC74-43A4-9A6D-3FC7BA467C2F}
+		{81DB7700-4A63-45CB-8FC3-AD444689138B} = {765A2DE5-FC74-43A4-9A6D-3FC7BA467C2F}
+		{765A2DE5-FC74-43A4-9A6D-3FC7BA467C2F} = {D4FCD154-5BBF-4996-AD71-CE87C5698F7E}
+		{AAC81674-3B5C-4041-ABD0-2F37BCE69089} = {0FDEAFEB-7926-4A63-BC38-F6BC223CBADD}
+		{A023902F-6BEF-4DB9-A389-2CA4FB209F12} = {AAC81674-3B5C-4041-ABD0-2F37BCE69089}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7F196E64-EAAA-41FC-8420-C6112B2060AF}
+	EndGlobalSection
+EndGlobal

@@ -65,6 +65,30 @@ namespace Rabbit.Extensions.DependencyInjection
             return services;
         }
 
+        public static IServiceCollection AddDependencyInjectionExtensions(this IServiceCollection services)
+        {
+            var method = typeof(ServiceDependencyInjectionExtensions).GetMethod(nameof(GetServiceExtensions), BindingFlags.NonPublic | BindingFlags.Static);
+
+            foreach (var service in services.ToArray().GroupBy(i => i.ServiceType).Select(i => i.First()))
+            {
+                var extensionsDescriptors = (IEnumerable<ServiceDescriptor>)method.MakeGenericMethod(service.ServiceType).Invoke(null, null);
+                foreach (var serviceDescriptor in extensionsDescriptors)
+                {
+                    services.Add(serviceDescriptor);
+                }
+            }
+
+            return services;
+        }
+
+        private static IEnumerable<ServiceDescriptor> GetServiceExtensions<T>()
+        {
+            yield return ServiceDescriptor.Transient(typeof(Lazy<T>), provider => new Lazy<T>(provider.GetRequiredService<T>));
+            yield return ServiceDescriptor.Transient(typeof(Lazy<IEnumerable<T>>), provider => new Lazy<IEnumerable<T>>(provider.GetRequiredService<IEnumerable<T>>));
+            yield return ServiceDescriptor.Transient(typeof(Func<T>), provider => new Func<T>(provider.GetRequiredService<T>));
+            yield return ServiceDescriptor.Transient(typeof(Func<IEnumerable<T>>), provider => new Func<IEnumerable<T>>(provider.GetRequiredService<IEnumerable<T>>));
+        }
+
         #region Private Method
 
         private static void RegisterDependency(Type type, IServiceCollection services)

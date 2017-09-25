@@ -9,7 +9,7 @@ namespace Rabbit.Extensions.DependencyInjection
 {
     public static class ServiceDependencyInjectionExtensions
     {
-        public static IServiceCollection AddServiceRegister(this IServiceCollection services, Func<RuntimeLibrary, bool> predicate = null)
+        public static IServiceCollection AddServiceRegister(this IServiceCollection services, Func<AssemblyName, bool> predicate = null)
         {
             var assemblies = GetAssemblies(predicate);
             return services.AddServiceRegister(assemblies);
@@ -35,7 +35,7 @@ namespace Rabbit.Extensions.DependencyInjection
             return services;
         }
 
-        public static IServiceCollection AddInterfaceDependency(this IServiceCollection services, Func<RuntimeLibrary, bool> predicate = null)
+        public static IServiceCollection AddInterfaceDependency(this IServiceCollection services, Func<AssemblyName, bool> predicate = null)
         {
             var assemblies = GetAssemblies(predicate);
             return services.AddInterfaceDependency(assemblies);
@@ -62,7 +62,7 @@ namespace Rabbit.Extensions.DependencyInjection
             return services;
         }
 
-        public static IServiceCollection AddDependencyInjectionExtensions(this IServiceCollection services)
+        public static IServiceCollection AddServiceExtensions(this IServiceCollection services)
         {
             var method = typeof(ServiceDependencyInjectionExtensions).GetMethod(nameof(GetServiceExtensions), BindingFlags.NonPublic | BindingFlags.Static);
 
@@ -78,6 +78,8 @@ namespace Rabbit.Extensions.DependencyInjection
             return services;
         }
 
+        #region Private Method
+
         private static IEnumerable<ServiceDescriptor> GetServiceExtensions<T>()
         {
             yield return ServiceDescriptor.Transient(typeof(Lazy<T>), provider => new Lazy<T>(provider.GetRequiredService<T>));
@@ -86,14 +88,12 @@ namespace Rabbit.Extensions.DependencyInjection
             yield return ServiceDescriptor.Singleton(typeof(Func<IEnumerable<T>>), provider => new Func<IEnumerable<T>>(provider.GetRequiredService<IEnumerable<T>>));
         }
 
-        #region Private Method
-
-        private static IEnumerable<Assembly> GetAssemblies(Func<RuntimeLibrary, bool> predicate = null)
+        private static IEnumerable<Assembly> GetAssemblies(Func<AssemblyName, bool> predicate = null)
         {
-            var runtimeLibraries = DependencyContext.Default.RuntimeLibraries;
+            var assemblyNames = DependencyContext.Default.RuntimeLibraries.SelectMany(i => i.GetDefaultAssemblyNames(DependencyContext.Default));
             if (predicate != null)
-                runtimeLibraries = runtimeLibraries.Where(predicate).ToArray();
-            var assemblies = runtimeLibraries.Select(i => Assembly.Load(new AssemblyName(i.Name))).ToArray();
+                assemblyNames = assemblyNames.Where(predicate).ToArray();
+            var assemblies = assemblyNames.Select(i => Assembly.Load(new AssemblyName(i.Name))).ToArray();
             return assemblies;
         }
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,9 @@ namespace Rabbit.Extensions.DependencyInjection
 {
     public static class ServiceDependencyInjectionExtensions
     {
-        public static IServiceCollection AddServiceRegister(this IServiceCollection services, Func<Assembly, bool> predicate = null)
+        public static IServiceCollection AddServiceRegister(this IServiceCollection services, Func<RuntimeLibrary, bool> predicate = null)
         {
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(i => i.IsDynamic == false);
-            if (predicate != null)
-                assemblies = assemblies.Where(predicate).ToArray();
+            var assemblies = GetAssemblies(predicate);
             return services.AddServiceRegister(assemblies);
         }
 
@@ -36,11 +35,9 @@ namespace Rabbit.Extensions.DependencyInjection
             return services;
         }
 
-        public static IServiceCollection AddInterfaceDependency(this IServiceCollection services, Func<Assembly, bool> predicate = null)
+        public static IServiceCollection AddInterfaceDependency(this IServiceCollection services, Func<RuntimeLibrary, bool> predicate = null)
         {
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(i => i.IsDynamic == false);
-            if (predicate != null)
-                assemblies = assemblies.Where(predicate).ToArray();
+            var assemblies = GetAssemblies(predicate);
             return services.AddInterfaceDependency(assemblies);
         }
 
@@ -90,6 +87,15 @@ namespace Rabbit.Extensions.DependencyInjection
         }
 
         #region Private Method
+
+        private static IEnumerable<Assembly> GetAssemblies(Func<RuntimeLibrary, bool> predicate = null)
+        {
+            var runtimeLibraries = DependencyContext.Default.RuntimeLibraries;
+            if (predicate != null)
+                runtimeLibraries = runtimeLibraries.Where(predicate).ToArray();
+            var assemblies = runtimeLibraries.Select(i => Assembly.Load(new AssemblyName(i.Name))).ToArray();
+            return assemblies;
+        }
 
         private static void RegisterDependency(Type type, IServiceCollection services)
         {

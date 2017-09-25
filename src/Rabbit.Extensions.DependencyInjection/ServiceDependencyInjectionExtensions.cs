@@ -82,8 +82,8 @@ namespace Rabbit.Extensions.DependencyInjection
         {
             yield return ServiceDescriptor.Transient(typeof(Lazy<T>), provider => new Lazy<T>(provider.GetRequiredService<T>));
             yield return ServiceDescriptor.Transient(typeof(Lazy<IEnumerable<T>>), provider => new Lazy<IEnumerable<T>>(provider.GetRequiredService<IEnumerable<T>>));
-            yield return ServiceDescriptor.Transient(typeof(Func<T>), provider => new Func<T>(provider.GetRequiredService<T>));
-            yield return ServiceDescriptor.Transient(typeof(Func<IEnumerable<T>>), provider => new Func<IEnumerable<T>>(provider.GetRequiredService<IEnumerable<T>>));
+            yield return ServiceDescriptor.Singleton(typeof(Func<T>), provider => new Func<T>(provider.GetRequiredService<T>));
+            yield return ServiceDescriptor.Singleton(typeof(Func<IEnumerable<T>>), provider => new Func<IEnumerable<T>>(provider.GetRequiredService<IEnumerable<T>>));
         }
 
         #region Private Method

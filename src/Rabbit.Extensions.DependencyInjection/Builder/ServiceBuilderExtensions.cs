@@ -12,7 +12,7 @@ namespace Rabbit.Extensions.DependencyInjection.Builder
 
         public static ServiceBuilder As(this ServiceBuilder builder, Type serviceType)
         {
-            builder.ServiceTypes.Add(serviceType);
+            builder.ServiceKeys.Add(new ServiceKey(serviceType));
             return builder;
         }
 
@@ -37,14 +37,24 @@ namespace Rabbit.Extensions.DependencyInjection.Builder
             return builder;
         }
 
-        public static ServiceBuilder Named(this ServiceBuilder builder, string named)
+        public static ServiceBuilder Named<TService>(this ServiceBuilder builder, string named)
         {
-            return builder.Keyed(named);
+            return builder.Named(typeof(TService), named);
         }
 
-        public static ServiceBuilder Keyed(this ServiceBuilder builder, object keyed)
+        public static ServiceBuilder Named(this ServiceBuilder builder, Type serviceType, string named)
         {
-            builder.Keyeds.Add(keyed);
+            return builder.Keyed(serviceType, named);
+        }
+
+        public static ServiceBuilder Keyed<TService>(this ServiceBuilder builder, object keyed)
+        {
+            return builder.Keyed(typeof(TService), keyed);
+        }
+
+        public static ServiceBuilder Keyed(this ServiceBuilder builder, Type serviceType, object keyed)
+        {
+            builder.ServiceKeys.Add(new KeyedServiceKey(serviceType, keyed));
             return builder;
         }
     }

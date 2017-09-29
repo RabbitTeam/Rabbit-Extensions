@@ -9,34 +9,44 @@ namespace Rabbit.Extensions.DependencyInjection.Builder
     {
         public ServiceBuilder()
         {
-            Keyeds = new List<object>();
-            ServiceTypes = new List<Type>();
+            ServiceKeys = new List<IServiceKey>();
         }
 
         internal Type ImplementationType { get; set; }
-        internal ICollection<Type> ServiceTypes { get; set; }
+        internal ICollection<IServiceKey> ServiceKeys { get; set; }
         internal ServiceLifetime Lifetime { get; set; }
         internal object ImplementationInstance { get; set; }
         internal Func<IServiceProvider, object> ImplementationFactory { get; set; }
-        internal ICollection<object> Keyeds { get; set; }
 
         internal void Build(IServiceCollection services)
         {
-            var descriptors = ServiceTypes.Select(serviceType =>
-              {
-                  RabbitServiceDescriptor descriptor;
+            var descriptors = ServiceKeys.Distinct().Select(serviceKey =>
+            {
+                var serviceType = serviceKey.ServiceType;
+                ServiceDescriptor descriptor;
+                if (serviceKey is KeyedServiceKey)
+                {
+                    if (ImplementationFactory != null)
+                        descriptor = RabbitServiceDescriptor.Create(serviceType, ImplementationFactory, Lifetime);
+                    else if (ImplementationType != null)
+                        descriptor = RabbitServiceDescriptor.Create(serviceType, ImplementationType, Lifetime);
+                    else
+                        descriptor = RabbitServiceDescriptor.Create(serviceType, ImplementationInstance);
 
-                  if (ImplementationFactory != null)
-                      descriptor = RabbitServiceDescriptor.Create(serviceType, ImplementationFactory, Lifetime);
-                  else if (ImplementationType != null)
-                      descriptor = RabbitServiceDescriptor.Create(serviceType, ImplementationType, Lifetime);
-                  else
-                      descriptor = RabbitServiceDescriptor.Create(serviceType, ImplementationInstance);
+                    ((RabbitServiceDescriptor)descriptor).ServiceKey = serviceKey;
+                }
+                else
+                {
+                    if (ImplementationFactory != null)
+                        descriptor = new ServiceDescriptor(serviceType, ImplementationFactory, Lifetime);
+                    else if (ImplementationType != null)
+                        descriptor = new ServiceDescriptor(serviceType, ImplementationType, Lifetime);
+                    else
+                        descriptor = new ServiceDescriptor(serviceType, ImplementationInstance);
+                }
 
-                  descriptor.Keyeds = Keyeds.ToArray();
-
-                  return descriptor;
-              });
+                return descriptor;
+            }).ToArray();
 
             foreach (var descriptor in descriptors)
             {

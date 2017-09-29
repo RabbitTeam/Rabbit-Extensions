@@ -4,16 +4,16 @@ namespace Rabbit.Extensions.DependencyInjection
 {
     public static class ServiceProviderServiceExtensions
     {
+        public static TService GetKeyedService<TService>(this IServiceProvider serviceProvider, object keyed)
+        {
+            return (TService)serviceProvider.GetKeyedService(typeof(TService), keyed);
+        }
+
         public static object GetKeyedService(this IServiceProvider serviceProvider, Type serviceType, object keyed)
         {
             if (serviceProvider is ISupportKeyedService supportKeyedService)
                 return supportKeyedService.GetKeyedService(serviceType, keyed);
             throw new NotSupportedException("not support keyedService.");
-        }
-
-        public static object GetKeyedService<TService>(this IServiceProvider serviceProvider, object keyed)
-        {
-            return serviceProvider.GetKeyedService(typeof(TService), keyed);
         }
 
         public static object GetRequiredKeyedService(this IServiceProvider serviceProvider, Type serviceType, object keyed)
@@ -24,14 +24,14 @@ namespace Rabbit.Extensions.DependencyInjection
             return service;
         }
 
-        public static object GetRequiredKeyedService<TService>(this IServiceProvider serviceProvider, object keyed)
+        public static TService GetRequiredKeyedService<TService>(this IServiceProvider serviceProvider, object keyed)
         {
-            return serviceProvider.GetRequiredKeyedService(typeof(TService), keyed);
+            return (TService)serviceProvider.GetRequiredKeyedService(typeof(TService), keyed);
         }
 
-        public static object GetNamedService<TService>(this IServiceProvider serviceProvider, string named)
+        public static TService GetNamedService<TService>(this IServiceProvider serviceProvider, string named)
         {
-            return serviceProvider.GetNamedService(typeof(TService), named);
+            return (TService)serviceProvider.GetNamedService(typeof(TService), named);
         }
 
         public static object GetNamedService(this IServiceProvider serviceProvider, Type serviceType, string named)
@@ -47,9 +47,9 @@ namespace Rabbit.Extensions.DependencyInjection
             return service;
         }
 
-        public static object GetRequiredNamedService<TService>(this IServiceProvider serviceProvider, string named)
+        public static TService GetRequiredNamedService<TService>(this IServiceProvider serviceProvider, string named)
         {
-            return serviceProvider.GetRequiredNamedService(typeof(TService), named);
+            return (TService)serviceProvider.GetRequiredNamedService(typeof(TService), named);
         }
     }
 }

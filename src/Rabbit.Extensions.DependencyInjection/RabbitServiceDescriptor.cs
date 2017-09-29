@@ -4,6 +4,106 @@ using System;
 
 namespace Rabbit.Extensions.DependencyInjection
 {
+    public interface IServiceKey
+    {
+        Type ServiceType { get; }
+    }
+
+    public struct KeyedServiceKey : IServiceKey
+    {
+        public Type ServiceType { get; }
+        public object Keyed { get; }
+
+        public KeyedServiceKey(Type serviceType, object keyed)
+        {
+            ServiceType = serviceType;
+            Keyed = keyed;
+        }
+
+        #region Overrides of ValueType
+
+        /// <summary>Indicates whether this instance and a specified object are equal.</summary>
+        /// <param name="obj">The object to compare with the current instance.</param>
+        /// <returns>true if <paramref name="obj">obj</paramref> and this instance are the same type and represent the same value; otherwise, false.</returns>
+        public override bool Equals(object obj)
+        {
+            if (obj is KeyedServiceKey serviceKey)
+                return Equals(serviceKey);
+            return base.Equals(obj);
+        }
+
+        public bool Equals(KeyedServiceKey other)
+        {
+            return ServiceType == other.ServiceType && Equals(Keyed, other.Keyed);
+        }
+
+        /// <summary>Returns the hash code for this instance.</summary>
+        /// <returns>A 32-bit signed integer that is the hash code for this instance.</returns>
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((ServiceType != null ? ServiceType.GetHashCode() : 0) * 397) ^ (Keyed != null ? Keyed.GetHashCode() : 0);
+            }
+        }
+
+        /// <summary>Returns the fully qualified type name of this instance.</summary>
+        /// <returns>The fully qualified type name.</returns>
+        public override string ToString()
+        {
+            return $"ServiceType:{ServiceType},Keyed:{Keyed}";
+        }
+
+        #endregion Overrides of ValueType
+    }
+
+    public struct ServiceKey : IServiceKey
+    {
+        public ServiceKey(Type serviceType)
+        {
+            ServiceType = serviceType;
+        }
+
+        #region Implementation of IServiceKey
+
+        public Type ServiceType { get; }
+
+        #endregion Implementation of IServiceKey
+
+        #region Overrides of ValueType
+
+        /// <summary>Indicates whether this instance and a specified object are equal.</summary>
+        /// <param name="obj">The object to compare with the current instance.</param>
+        /// <returns>true if <paramref name="obj">obj</paramref> and this instance are the same type and represent the same value; otherwise, false.</returns>
+        public override bool Equals(object obj)
+        {
+            if (obj is ServiceKey serviceKey)
+                return Equals(serviceKey);
+            return base.Equals(obj);
+        }
+
+        public bool Equals(ServiceKey other)
+        {
+            return ServiceType == other.ServiceType;
+        }
+
+        /// <summary>Returns the hash code for this instance.</summary>
+        /// <returns>A 32-bit signed integer that is the hash code for this instance.</returns>
+        public override int GetHashCode()
+        {
+            return ServiceType != null ? ServiceType.GetHashCode() : 0;
+        }
+
+        /// <summary>Returns the fully qualified type name of this instance.</summary>
+        /// <returns>The fully qualified type name.</returns>
+        public override string ToString()
+        {
+            return $"ServiceType:{ServiceType}";
+        }
+
+        #endregion Overrides of ValueType
+    }
+
     public class RabbitServiceDescriptor : ServiceDescriptor
     {
         /// <inheritdoc />
@@ -39,8 +139,7 @@ namespace Rabbit.Extensions.DependencyInjection
         {
         }
 
-        public object[] Keyeds { get; set; }
-        internal Type RealType { get; set; }
+        public IServiceKey ServiceKey { get; set; }
 
         public static RabbitServiceDescriptor Create(Type serviceType, Type implementationType, ServiceLifetime lifetime)
         {
@@ -59,7 +158,7 @@ namespace Rabbit.Extensions.DependencyInjection
 
         private static RabbitServiceDescriptor Guarantee(Type realType, RabbitServiceDescriptor rabbitServiceDescriptor)
         {
-            rabbitServiceDescriptor.RealType = realType;
+            //            rabbitServiceDescriptor.RealType = realType;
             return rabbitServiceDescriptor;
         }
 

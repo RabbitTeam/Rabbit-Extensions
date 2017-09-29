@@ -66,7 +66,7 @@ namespace Rabbit.Extensions.DependencyInjection
         {
             var method = typeof(ServiceDependencyInjectionExtensions).GetMethod(nameof(GetServiceExtensions), BindingFlags.NonPublic | BindingFlags.Static);
 
-            foreach (var service in services.ToArray().GroupBy(i => i.ServiceType).Select(i => i.First()))
+            foreach (var service in services.ToArray().GroupBy(i => i.ServiceType).Select(i => i.First()).Where(i => !i.ServiceType.ContainsGenericParameters))
             {
                 var extensionsDescriptors = (IEnumerable<ServiceDescriptor>)method.MakeGenericMethod(service.ServiceType).Invoke(null, null);
                 foreach (var serviceDescriptor in extensionsDescriptors)

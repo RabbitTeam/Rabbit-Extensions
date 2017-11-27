@@ -2,6 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using Xunit;
+using System.Linq;
 
 namespace Rabbit.Extensions.DependencyInjection.Test
 {
@@ -32,6 +33,20 @@ namespace Rabbit.Extensions.DependencyInjection.Test
     public class TestService : ITestService1, ITestService2, ITestService3
     {
     }
+
+    public interface ITestService { }
+
+
+
+    [ServiceDescriptor("t1", typeof(ITestService), ServiceLifetime.Scoped)]
+    public class TestService1 : ITestService { }
+
+    [ServiceDescriptor("t2", typeof(ITestService), ServiceLifetime.Scoped)]
+    public class TestService2 : ITestService { }
+
+
+
+
 
     public class DependencyInjectionTest
     {
@@ -90,5 +105,27 @@ namespace Rabbit.Extensions.DependencyInjection.Test
             Assert.Equal(services.GetRequiredService<Func<ITestService2>>(), services.GetRequiredService<Func<ITestService2>>());
             Assert.NotEqual(services.GetRequiredService<Func<ITestService2>>()(), services.GetRequiredService<Func<ITestService2>>()());
         }
+
+        [Fact]
+        public void AttributeAndMetadataTest()
+        {
+            var services = new ServiceCollection()
+                .AddMetadataDependency()
+                .BuildServiceProvider();
+
+            var ts = services.GetServiceByMetadata<ITestService>(
+                           metadata => metadata.Name == "t1"
+                    );
+
+            Assert.Equal(ts?.GetType(), typeof(TestService1));
+
+            var query = services.GetServicesByMetadata<ITestService>();
+
+            Assert.Equal(query.Count(), 2);
+
+
+        }
+
+
     }
 }

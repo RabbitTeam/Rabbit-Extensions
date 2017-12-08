@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27130.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rabbit.Extensions.Configuration", "src\Configuration\Rabbit.Extensions.Configuration\Rabbit.Extensions.Configuration.csproj", "{6934D8D2-6993-4E8C-A118-8EDAFC8C6709}"
 EndProject
@@ -27,9 +27,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{7638
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp", "samples\ConsoleApp\ConsoleApp.csproj", "{89D4DDA4-5A85-4EC8-9D11-BBE20C9523C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rabbit.Extensions.DependencyInjection", "src\Rabbit.Extensions.DependencyInjection\Rabbit.Extensions.DependencyInjection.csproj", "{3E5858AD-00F8-4AB6-ADFA-7EB55BFEA695}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rabbit.Extensions.DependencyInjection", "src\Rabbit.Extensions.DependencyInjection\Rabbit.Extensions.DependencyInjection.csproj", "{3E5858AD-00F8-4AB6-ADFA-7EB55BFEA695}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rabbit.Extensions.DependencyInjection.Test", "test\Rabbit.Extensions.DependencyInjection.Test\Rabbit.Extensions.DependencyInjection.Test.csproj", "{9E225D0C-5B7E-4FEA-8A07-D3B4FDB1BD8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rabbit.Extensions.DependencyInjection.Test", "test\Rabbit.Extensions.DependencyInjection.Test\Rabbit.Extensions.DependencyInjection.Test.csproj", "{9E225D0C-5B7E-4FEA-8A07-D3B4FDB1BD8D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rabbit.Extensions.Boot", "src\Rabbit.Extensions.Boot\Rabbit.Extensions.Boot.csproj", "{A02F6865-8AFA-4493-9DA8-63A257274601}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,14 @@ Global
 		{9E225D0C-5B7E-4FEA-8A07-D3B4FDB1BD8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E225D0C-5B7E-4FEA-8A07-D3B4FDB1BD8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E225D0C-5B7E-4FEA-8A07-D3B4FDB1BD8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A02F6865-8AFA-4493-9DA8-63A257274601}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A02F6865-8AFA-4493-9DA8-63A257274601}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A02F6865-8AFA-4493-9DA8-63A257274601}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A02F6865-8AFA-4493-9DA8-63A257274601}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3ADD4E05-2792-4392-A927-5F1C3D4011B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3ADD4E05-2792-4392-A927-5F1C3D4011B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3ADD4E05-2792-4392-A927-5F1C3D4011B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3ADD4E05-2792-4392-A927-5F1C3D4011B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +84,8 @@ Global
 		{89D4DDA4-5A85-4EC8-9D11-BBE20C9523C0} = {76380790-B349-4C9F-868B-39F81582A114}
 		{3E5858AD-00F8-4AB6-ADFA-7EB55BFEA695} = {D4FCD154-5BBF-4996-AD71-CE87C5698F7E}
 		{9E225D0C-5B7E-4FEA-8A07-D3B4FDB1BD8D} = {0FDEAFEB-7926-4A63-BC38-F6BC223CBADD}
+		{A02F6865-8AFA-4493-9DA8-63A257274601} = {D4FCD154-5BBF-4996-AD71-CE87C5698F7E}
+		{3ADD4E05-2792-4392-A927-5F1C3D4011B2} = {D4FCD154-5BBF-4996-AD71-CE87C5698F7E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7F196E64-EAAA-41FC-8420-C6112B2060AF}
